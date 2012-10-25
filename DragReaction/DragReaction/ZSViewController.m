@@ -56,8 +56,7 @@
                      }];
                      
                  }
-                    completion:nil
-                       options:ZSDraggingOverlapContains];
+                    completion:nil];
     
 }
 

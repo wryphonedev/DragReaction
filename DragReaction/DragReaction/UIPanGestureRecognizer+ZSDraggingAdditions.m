@@ -18,7 +18,7 @@ static char const * const StartPointKey = "StartPoint";
 {
     CGPoint translatedPoint = [self translationInView:view];
     
-    // Adjust our translated point if the containing view has a transform identity applied
+    // Adjust our translated point if the containing view has a transform applied
     if (!CGAffineTransformIsIdentity(view.transform))
     {
         translatedPoint = CGPointApplyAffineTransform(translatedPoint, view.transform);
@@ -41,11 +41,6 @@ static char const * const StartPointKey = "StartPoint";
             UIView *evaluatingView = [self view];
             CGRect evaluateRect = evaluatingView.frame;
             
-            //CGRect evaluateRect = [view convertRect:evaluatingView.frame fromView:recognizer.view.superview];
-            
-            // Does this view intersect with any of our evaluation views?
-            //UIView *intersectingView = [self viewIntersectingRect:evaluateRect evaluateViews:overlappingViews];
-       
             // Do any of our evaluation views contain our recognizer's view?
             UIView *containingView = [self viewContainingRect:evaluateRect evaluateViews:views];
             
@@ -64,13 +59,12 @@ static char const * const StartPointKey = "StartPoint";
             {
                 UIView *evaluatingView = [self view];
                 CGRect evaluateRect = [evaluatingView frame];
-               // CGRect evaluateRect = [view convertRect:evaluatingView.frame fromView:recognizer.view.superview];
-                
-                //UIView *intersectingView = [self viewIntersectingRect:evaluateRect evaluateViews:overlappingViews];
                 UIView *containingView = [self viewContainingRect:evaluateRect evaluateViews:views];
                 
                 completionBlock(containingView);
             }
+            
+            [self setStartPoint:CGPointZero];
             
         }
             break;
@@ -78,9 +72,6 @@ static char const * const StartPointKey = "StartPoint";
         default:
             break;
     }
-
-    
-    
 }
 
 - (CGPoint)startPoint
@@ -90,8 +81,15 @@ static char const * const StartPointKey = "StartPoint";
 }
 
 - (void)setStartPoint:(CGPoint)startPoint
-{
+{    
     NSValue *pointValue = [NSValue valueWithCGPoint:startPoint];
+    
+    // If startPoint is CGPointZero, pointValue should be nil so that previous value is released.
+    if (CGPointEqualToPoint(startPoint, CGPointZero))
+    {
+        pointValue = nil;
+    }
+    
     objc_setAssociatedObject(self, StartPointKey, pointValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
