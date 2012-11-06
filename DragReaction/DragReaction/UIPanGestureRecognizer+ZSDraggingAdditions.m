@@ -14,7 +14,7 @@ static char const * const StartPointKey = "StartPoint";
 
 @dynamic startPoint;
 
-- (void)dragWithinView:(UIView *)view evaluateOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock 
+- (void)dragWithinView:(UIView *)view evaluateOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock
 {
     CGPoint translatedPoint = [self translationInView:view];
     
@@ -40,8 +40,6 @@ static char const * const StartPointKey = "StartPoint";
             [[self view] setCenter:translatedPoint];
             UIView *evaluatingView = [self view];
             CGRect evaluateRect = evaluatingView.frame;
-            
-            // Do any of our evaluation views contain our recognizer's view?
             UIView *containingView = [self viewContainingRect:evaluateRect evaluateViews:views];
             
             if (overlapsBlock)
@@ -54,7 +52,6 @@ static char const * const StartPointKey = "StartPoint";
             
         case UIGestureRecognizerStateEnded:
         {
-            // Handle completion
             if (completionBlock)
             {
                 UIView *evaluatingView = [self view];
@@ -76,8 +73,8 @@ static char const * const StartPointKey = "StartPoint";
 
 - (void)dragWithinView:(UIView *)view evaluateOverlappingRects:(NSArray *)rects overlapsBlock:(void (^)(NSUInteger overlapIndex))overlapsBlock completion:(void (^)(NSUInteger overlapIndex))completionBlock
 {
+    CGPoint evaluationPoint = [self locationInView:view];
     CGPoint translatedPoint = [self translationInView:view];
- 
     
     // Adjust our translated point if the containing view has a transform applied
     if (!CGAffineTransformIsIdentity(view.transform))
@@ -100,9 +97,9 @@ static char const * const StartPointKey = "StartPoint";
             translatedPoint =  CGPointMake(self.startPoint.x + translatedPoint.x, self.startPoint.y + translatedPoint.y);
             [[self view] setCenter:translatedPoint];
             
-            NSUInteger containingIndex = [self indexOfRectContainingPoint:translatedPoint evaluateRects:rects];
+            NSUInteger containingIndex = [self indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
             
-            if (overlapsBlock && containingIndex != NSNotFound)
+            if (overlapsBlock)
             {
                 overlapsBlock(containingIndex);
             }
@@ -112,10 +109,9 @@ static char const * const StartPointKey = "StartPoint";
             
         case UIGestureRecognizerStateEnded:
         {
-            // Handle completion
-            NSUInteger containingIndex = [self indexOfRectContainingPoint:translatedPoint evaluateRects:rects];
+            NSUInteger containingIndex = [self indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
             
-            if (completionBlock && containingIndex != NSNotFound)
+            if (completionBlock && containingIndex)
             {
                 completionBlock(containingIndex);
             }
@@ -128,7 +124,6 @@ static char const * const StartPointKey = "StartPoint";
         default:
             break;
     }
-
     
 }
 
@@ -139,7 +134,7 @@ static char const * const StartPointKey = "StartPoint";
 }
 
 - (void)setStartPoint:(CGPoint)startPoint
-{    
+{
     NSValue *pointValue = [NSValue valueWithCGPoint:startPoint];
     
     // If startPoint is CGPointZero, pointValue should be nil so that previous value is released.
@@ -157,6 +152,8 @@ static char const * const StartPointKey = "StartPoint";
         
         NSValue *rectValue = (NSValue *)obj;
         CGRect rect = [rectValue CGRectValue];
+        
+        NSLog(@"evaluated rect:%@ and point:%@", NSStringFromCGRect(rect), NSStringFromCGPoint(point));
         
         return CGRectContainsPoint(rect, point);
         
