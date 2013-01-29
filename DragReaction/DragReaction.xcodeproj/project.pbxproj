@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A60684716B82DC800D4CD51 /* UIView+ZSViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A60684616B82DC800D4CD51 /* UIView+ZSViewAdditions.m */; };
 		6AAAEF5D1639868E00A01BF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAAEF5C1639868E00A01BF7 /* UIKit.framework */; };
 		6AAAEF5F1639868E00A01BF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAAEF5E1639868E00A01BF7 /* Foundation.framework */; };
 		6AAAEF611639868E00A01BF7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAAEF601639868E00A01BF7 /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A60684516B82DC800D4CD51 /* UIView+ZSViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZSViewAdditions.h"; sourceTree = "<group>"; };
+		6A60684616B82DC800D4CD51 /* UIView+ZSViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZSViewAdditions.m"; sourceTree = "<group>"; };
 		6AAAEF581639868E00A01BF7 /* DragReaction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragReaction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAAEF5C1639868E00A01BF7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6AAAEF5E1639868E00A01BF7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -116,6 +119,8 @@
 			children = (
 				6AAAEF801639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.h */,
 				6AAAEF811639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m */,
+				6A60684516B82DC800D4CD51 /* UIView+ZSViewAdditions.h */,
+				6A60684616B82DC800D4CD51 /* UIView+ZSViewAdditions.m */,
 			);
 			name = DraggingAdditions;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 				6AAAEF6D1639868E00A01BF7 /* ZSAppDelegate.m in Sources */,
 				6AAAEF761639868E00A01BF7 /* ZSViewController.m in Sources */,
 				6AAAEF821639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m in Sources */,
+				6A60684716B82DC800D4CD51 /* UIView+ZSViewAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +231,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -254,6 +261,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -309,6 +317,7 @@
 				6AAAEF7E1639868E00A01BF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

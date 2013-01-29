@@ -15,9 +15,5 @@
 @property (assign) CGPoint startPoint;
 
 - (void)dragWithinView:(UIView *)view evaluateOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock;
-- (UIView *)viewContainingPoint:(CGPoint)point evaluateViews:(NSArray *)views;
-- (UIView *)viewIntersectingRect:(CGRect)rect evaluateViews:(NSArray *)views;
-- (UIView *)viewContainingRect:(CGRect)rect evaluateViews:(NSArray *)views;
-
 
 @end
