@@ -81,16 +81,10 @@ static char const * const StartPointKey = "StartPoint";
     }
 }
 
-- (void)dragWithinView:(UIView *)view evaluateOverlappingRects:(NSArray *)rects overlapsBlock:(void (^)(NSUInteger overlapIndex))overlapsBlock completion:(void (^)(NSUInteger overlapIndex))completionBlock
+- (void)dragWhileEvaluatingOverlappingRects:(NSArray *)rects overlapsBlock:(void (^)(NSUInteger overlapIndex))overlapsBlock completion:(void (^)(NSUInteger overlapIndex))completionBlock
 {
-    CGPoint evaluationPoint = [self locationInView:view];
-    CGPoint translatedPoint = [self translationInView:view];
-    
-    // Adjust our translated point if the containing view has a transform applied
-    if (!CGAffineTransformIsIdentity(view.transform))
-    {
-        translatedPoint = CGPointApplyAffineTransform(translatedPoint, view.transform);
-    }
+
+    CGPoint translatedPoint = [self translationInView:self.view.superview];
     
     switch ([self state])
     {
@@ -107,20 +101,22 @@ static char const * const StartPointKey = "StartPoint";
             translatedPoint =  CGPointMake(self.startPoint.x + translatedPoint.x, self.startPoint.y + translatedPoint.y);
             [[self view] setCenter:translatedPoint];
             
-            NSUInteger containingIndex = [UIView indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
+            NSUInteger containingIndex = [UIView indexOfRectContainingPoint:translatedPoint evaluateRects:rects];
             
-            if (overlapsBlock)
+            if (containingIndex != NSNotFound)
             {
-                overlapsBlock(containingIndex);
+                if (overlapsBlock)
+                {
+                    overlapsBlock(containingIndex);
+                }
             }
-            
         }
             break;
             
         case UIGestureRecognizerStateEnded:
         {
             // Valid to assume containingIndex may be NSNotFound...
-            NSUInteger containingIndex = [UIView indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
+            NSUInteger containingIndex = [UIView indexOfRectContainingPoint:translatedPoint evaluateRects:rects];
             
             if (completionBlock)
             {
