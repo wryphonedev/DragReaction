@@ -18,6 +18,7 @@ static char const * const StartPointKey = "StartPoint";
 - (void)dragWithinView:(UIView *)view evaluateOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock
 {
     CGPoint translatedPoint = [self translationInView:view];
+    
     // Adjust our translated point if the containing view has a transform applied.
     if (!CGAffineTransformIsIdentity(view.transform))
     {
@@ -36,7 +37,7 @@ static char const * const StartPointKey = "StartPoint";
             
         case UIGestureRecognizerStateChanged:
         {
-            translatedPoint =  CGPointMake(self.startPoint.x + translatedPoint.x, self.startPoint.y + translatedPoint.y);
+            translatedPoint =  CGPointMake(self.startPoint.x -+ translatedPoint.x, self.startPoint.y -+ translatedPoint.y);
             [[self view] setCenter:translatedPoint];
             UIView *evaluatingView = [self view];
             CGRect evaluateRect = evaluatingView.frame;
@@ -106,7 +107,7 @@ static char const * const StartPointKey = "StartPoint";
             translatedPoint =  CGPointMake(self.startPoint.x + translatedPoint.x, self.startPoint.y + translatedPoint.y);
             [[self view] setCenter:translatedPoint];
             
-            NSUInteger containingIndex = [self indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
+            NSUInteger containingIndex = [UIView indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
             
             if (overlapsBlock)
             {
@@ -118,9 +119,10 @@ static char const * const StartPointKey = "StartPoint";
             
         case UIGestureRecognizerStateEnded:
         {
-            NSUInteger containingIndex = [self indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
+            // Valid to assume containingIndex may be NSNotFound...
+            NSUInteger containingIndex = [UIView indexOfRectContainingPoint:evaluationPoint evaluateRects:rects];
             
-            if (completionBlock && containingIndex)
+            if (completionBlock)
             {
                 completionBlock(containingIndex);
             }
@@ -153,80 +155,6 @@ static char const * const StartPointKey = "StartPoint";
     }
     
     objc_setAssociatedObject(self, StartPointKey, pointValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSUInteger)indexOfRectContainingPoint:(CGPoint)point evaluateRects:(NSArray *)evaluate
-{
-    return [evaluate indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        
-        NSValue *rectValue = (NSValue *)obj;
-        CGRect rect = [rectValue CGRectValue];
-        
-        NSLog(@"evaluated rect:%@ and point:%@", NSStringFromCGRect(rect), NSStringFromCGPoint(point));
-        
-        return CGRectContainsPoint(rect, point);
-        
-    }];
-    
-}
-
-- (UIView *)viewContainingPoint:(CGPoint)point evaluateViews:(NSArray *)views
-{
-    // View containing a point
-    UIView *matchingView = nil;
-    NSInteger matchingIndex = [views indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        
-        UIView *view = (UIView *)obj;
-        CGRect frame = view.frame;
-        
-        return CGRectContainsPoint(frame, point);
-    }];
-    
-    if (matchingIndex != NSNotFound)
-    {
-        matchingView = [views objectAtIndex:matchingIndex];
-    }
-    
-    return matchingView;
-    
-}
-
-- (UIView *)viewIntersectingRect:(CGRect)rect evaluateViews:(NSArray *)views
-{
-    UIView *matchingView = nil;
-    NSInteger matchingIndex = [views indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        
-        UIView *view = (UIView *)obj;
-        CGRect frame = view.frame;
-        
-        return CGRectIntersectsRect(rect, frame);
-    }];
-    
-    if (matchingIndex != NSNotFound)
-    {
-        matchingView = [views objectAtIndex:matchingIndex];
-    }
-    
-    return matchingView;
-}
-
-- (UIView *)viewContainingRect:(CGRect)rect evaluateViews:(NSArray *)views
-{
-    UIView *matchingView = nil;
-    NSInteger matchingIndex = [views indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
-                               {
-                                   UIView *view = (UIView *)obj;
-                                   CGRect frame = view.frame;
-                                   
-                                   return CGRectContainsRect(frame, rect);
-                               }];
-    
-    if (matchingIndex != NSNotFound)
-    {
-        matchingView = [views objectAtIndex:matchingIndex];
-    }
-    
-    return matchingView;
 }
 
 @end
