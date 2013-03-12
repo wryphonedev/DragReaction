@@ -44,7 +44,7 @@ static char const * const StartPointKey = "StartPoint";
             
             UIView *containingView = [UIView viewContainingRect:evaluateRect evaluateViews:views];
             
-            if (overlapsBlock)
+            if (overlapsBlock && containingView)
             {
                 overlapsBlock(containingView);
             }
@@ -64,7 +64,11 @@ static char const * const StartPointKey = "StartPoint";
                 }
                 
                 UIView *containingView = [UIView viewContainingRect:evaluateRect evaluateViews:views];
-                completionBlock(containingView);
+                
+                if (completionBlock)
+                {
+                    completionBlock(containingView); 
+                }
             }
             
             [self setStartPoint:CGPointZero];

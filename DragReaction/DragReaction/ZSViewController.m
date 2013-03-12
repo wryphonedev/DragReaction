@@ -34,8 +34,14 @@
 - (IBAction)handlePanRecognizer:(id)sender
 {
     UIPanGestureRecognizer *recongizer = (UIPanGestureRecognizer *)sender;
+    
+    if ([recongizer state] == UIGestureRecognizerStateBegan)
+    {
+        [[self completionLabel] setText:nil];
+    }
 
     NSArray *views = [self evaluateViews];
+    __block UILabel *label = [self completionLabel];
     
     [recongizer dragWhileEvaluatingOverlappingViews:views
                                       overlapsBlock:^(UIView *overlapView) {
@@ -50,7 +56,7 @@
                                                   aView.layer.borderWidth = 8.0f;
                                                   aView.layer.borderColor = [[UIColor redColor] CGColor];
                                               }
-                                              // Remove style or handle non-overlapping views
+                                              // Remove styling on non-overlapping views
                                               else
                                               {
                                                   aView.layer.borderWidth = 0.0f;
@@ -58,7 +64,21 @@
                                               
                                           }];
 
-                                      } completion:nil];
+                                      } completion:^(UIView *overlapView) {
+                                          
+                                          if (overlapView)
+                                          {
+                                              NSUInteger overlapIndex = [[self evaluateViews] indexOfObject:overlapView];
+                                              NSString *completionText = [NSString stringWithFormat:@"Released over view at index: %d", overlapIndex];
+                                              [label setText:completionText];
+                                          }
+                                          
+                                          // Remove styling from all views
+                                          [views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                              UIView *aView = (UIView *)obj;
+                                              aView.layer.borderWidth = 0.0f;
+                                          }];
+                                      }];
 
 }
 

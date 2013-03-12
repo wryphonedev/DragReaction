@@ -14,6 +14,7 @@
 @property (nonatomic, weak) IBOutlet UIView *oneView;
 @property (nonatomic, weak) IBOutlet UIView *twoView;
 @property (nonatomic, weak) IBOutlet UIView *threeView;
+@property (nonatomic, weak) IBOutlet UILabel *completionLabel;
 @property (nonatomic, strong) IBOutlet UIPanGestureRecognizer *panRecognizer;
 
 - (IBAction)handlePanRecognizer:(id)sender;
