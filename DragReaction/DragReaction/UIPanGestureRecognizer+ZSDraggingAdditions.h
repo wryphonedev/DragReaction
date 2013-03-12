@@ -16,7 +16,7 @@
 @property (assign) CGPoint startPoint;
 
 // Drag the recognizer's view within passed view. Execute overlap block when overlapping with subview in passed views array. Translates rects to view's coordinates.
-- (void)dragWithinView:(UIView *)view evaluateOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock;
+- (void)dragWhileEvaluatingOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock;
 
 // Drag the recognizer's view within passed view. Execute overlap block when overlapping with index in the passed rects array values. Does not translate evaluation rects.
 - (void)dragWithinView:(UIView *)view evaluateOverlappingRects:(NSArray *)rects overlapsBlock:(void (^)(NSUInteger overlapIndex))overlapsBlock completion:(void (^)(NSUInteger overlapIndex))completionBlock;

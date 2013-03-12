@@ -15,16 +15,11 @@ static char const * const StartPointKey = "StartPoint";
 
 @dynamic startPoint;
 
-- (void)dragWithinView:(UIView *)view evaluateOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock
+- (void)dragWhileEvaluatingOverlappingViews:(NSArray *)views overlapsBlock:(void (^)(UIView *overlapView))overlapsBlock completion:(void (^)(UIView *overlapView))completionBlock
 {
+    UIView *view = self.view.superview;
     CGPoint translatedPoint = [self translationInView:view];
-    
-    // Adjust our translated point if the containing view has a transform applied.
-    if (!CGAffineTransformIsIdentity(view.transform))
-    {
-        translatedPoint = CGPointApplyAffineTransform(translatedPoint, view.transform);
-    }
-    
+
     switch ([self state])
     {
         case UIGestureRecognizerStateBegan:
@@ -37,8 +32,9 @@ static char const * const StartPointKey = "StartPoint";
             
         case UIGestureRecognizerStateChanged:
         {
-            translatedPoint =  CGPointMake(self.startPoint.x -+ translatedPoint.x, self.startPoint.y -+ translatedPoint.y);
+            translatedPoint =  CGPointMake(self.startPoint.x + translatedPoint.x, self.startPoint.y + translatedPoint.y);
             [[self view] setCenter:translatedPoint];
+            
             UIView *evaluatingView = [self view];
             CGRect evaluateRect = evaluatingView.frame;
             if (evaluatingView.superview != view)
