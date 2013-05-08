@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A60684716B82DC800D4CD51 /* UIView+ZSViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A60684616B82DC800D4CD51 /* UIView+ZSViewAdditions.m */; };
+		6A98DEF1173AE9AD0010D5F0 /* UIView+ZSViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A98DEEE173AE9AD0010D5F0 /* UIView+ZSViewAdditions.m */; };
+		6A98DEF2173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A98DEF0173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.m */; };
 		6AAAEF5D1639868E00A01BF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAAEF5C1639868E00A01BF7 /* UIKit.framework */; };
 		6AAAEF5F1639868E00A01BF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAAEF5E1639868E00A01BF7 /* Foundation.framework */; };
 		6AAAEF611639868E00A01BF7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAAEF601639868E00A01BF7 /* CoreGraphics.framework */; };
@@ -19,12 +20,13 @@
 		6AAAEF731639868E00A01BF7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AAAEF721639868E00A01BF7 /* Default-568h@2x.png */; };
 		6AAAEF761639868E00A01BF7 /* ZSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AAAEF751639868E00A01BF7 /* ZSViewController.m */; };
 		6AAAEF791639868E00A01BF7 /* ZSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AAAEF771639868E00A01BF7 /* ZSViewController.xib */; };
-		6AAAEF821639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AAAEF811639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6A60684516B82DC800D4CD51 /* UIView+ZSViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZSViewAdditions.h"; sourceTree = "<group>"; };
-		6A60684616B82DC800D4CD51 /* UIView+ZSViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZSViewAdditions.m"; sourceTree = "<group>"; };
+		6A98DEED173AE9AD0010D5F0 /* UIView+ZSViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZSViewAdditions.h"; sourceTree = "<group>"; };
+		6A98DEEE173AE9AD0010D5F0 /* UIView+ZSViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZSViewAdditions.m"; sourceTree = "<group>"; };
+		6A98DEEF173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+DraggingAdditions.h"; sourceTree = "<group>"; };
+		6A98DEF0173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+DraggingAdditions.m"; sourceTree = "<group>"; };
 		6AAAEF581639868E00A01BF7 /* DragReaction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragReaction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAAEF5C1639868E00A01BF7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6AAAEF5E1639868E00A01BF7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -41,8 +43,6 @@
 		6AAAEF741639868E00A01BF7 /* ZSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSViewController.h; sourceTree = "<group>"; };
 		6AAAEF751639868E00A01BF7 /* ZSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSViewController.m; sourceTree = "<group>"; };
 		6AAAEF781639868E00A01BF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ZSViewController.xib; sourceTree = "<group>"; };
-		6AAAEF801639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPanGestureRecognizer+ZSDraggingAdditions.h"; sourceTree = "<group>"; };
-		6AAAEF811639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPanGestureRecognizer+ZSDraggingAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,10 @@
 				6AAAEF741639868E00A01BF7 /* ZSViewController.h */,
 				6AAAEF751639868E00A01BF7 /* ZSViewController.m */,
 				6AAAEF771639868E00A01BF7 /* ZSViewController.xib */,
-				6AAAEF7F163986DF00A01BF7 /* DraggingAdditions */,
+				6A98DEED173AE9AD0010D5F0 /* UIView+ZSViewAdditions.h */,
+				6A98DEEE173AE9AD0010D5F0 /* UIView+ZSViewAdditions.m */,
+				6A98DEEF173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.h */,
+				6A98DEF0173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.m */,
 				6AAAEF631639868E00A01BF7 /* Supporting Files */,
 			);
 			path = DragReaction;
@@ -112,17 +115,6 @@
 				6AAAEF721639868E00A01BF7 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		6AAAEF7F163986DF00A01BF7 /* DraggingAdditions */ = {
-			isa = PBXGroup;
-			children = (
-				6AAAEF801639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.h */,
-				6AAAEF811639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m */,
-				6A60684516B82DC800D4CD51 /* UIView+ZSViewAdditions.h */,
-				6A60684616B82DC800D4CD51 /* UIView+ZSViewAdditions.m */,
-			);
-			name = DraggingAdditions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,8 +187,8 @@
 				6AAAEF691639868E00A01BF7 /* main.m in Sources */,
 				6AAAEF6D1639868E00A01BF7 /* ZSAppDelegate.m in Sources */,
 				6AAAEF761639868E00A01BF7 /* ZSViewController.m in Sources */,
-				6AAAEF821639871C00A01BF7 /* UIPanGestureRecognizer+ZSDraggingAdditions.m in Sources */,
-				6A60684716B82DC800D4CD51 /* UIView+ZSViewAdditions.m in Sources */,
+				6A98DEF1173AE9AD0010D5F0 /* UIView+ZSViewAdditions.m in Sources */,
+				6A98DEF2173AE9AD0010D5F0 /* UIGestureRecognizer+DraggingAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
