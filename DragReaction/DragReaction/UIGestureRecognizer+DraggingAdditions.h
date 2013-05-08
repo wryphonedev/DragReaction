@@ -15,7 +15,7 @@
 @property (assign, nonatomic) CGPoint startPoint;
 @property (strong, nonatomic) NSArray *rectValues;
 
-// Animate recognizer's attached view with touch. Execute overlap block when the recognizer's view frame is contained within the frame of a view in evaluatingOverappingViews array.
+// Animate recognizer's attached view with touch. Execute overlap block when the recognizer's view frame is contained within the frame of a view in evaluatingOverlappingViews array.
 - (void)dragAttachedViewWithinView:(UIView *)view evaluatingOverlappingViews:(NSArray *)views contains:(void (^)(UIView *overlappingView))containsBlock completion:(void (^)(UIView *overlappingView))completionBlock;
 
 // Animate recognizer's attached view with touch. Execute overlap block with the index of an evaluated rect that contains the rect of the gesture's view. 

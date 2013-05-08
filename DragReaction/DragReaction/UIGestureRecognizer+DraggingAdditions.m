@@ -11,7 +11,6 @@
 
 static char const * const StartPointKey = "ZSStartPoint";
 static char const * const RectValuesKey = "ZSRectValues";
-static char const * const AnimatingLayerKey = "ZSAnimatingLayer";
 
 @implementation UIGestureRecognizer (DraggingAdditions)
 
