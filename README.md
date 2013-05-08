@@ -14,17 +14,17 @@ In this example, we wish to drag the decorated view according to the movement of
 
 In the method that handles the UIPanGestureRecognizer, we invoke this method on the UIPanGestureRecognizer instance:
 
-- (void)dragAttachedViewWithinView:(UIView *)view evaluatingOverlappingViews:(NSArray *)views contains:(void (^)(UIView *overlappingView))containsBlock completion:(void (^)(UIView *overlappingView))completionBlock;
+- (void)dragViewWithinView:(UIView *)view evaluateViewsForOverlap:(NSArray *)views containedByOverlappingViewBlock:(void (^)(UIView *overlappingView))overlappingBlock completion:(void (^)(UIView *overlappingView))completionBlock;
 
 This will animate the movement of the recognizer's decorated view within the passed view (coordinates are converted to the passed view's space). We also pass an array of "views". As the view moves with the user's finger, if the decorated view is fully contained by any one of the views in the "views" array, the containsBlock will be executed. This block carries a reference to the view that is currently overlapping/containing, giving us the opportunity to "style" that overlapping view. When the gesture ends, the completionBlock is executed (regardless of whether the decorated view currently overlaps, however, in cases where it does, a reference to the overlapping view is again provided).
 
 
 The method:
-- (void)dragAttachedViewWithinView:(UIView *)view evaluatingOverlappingRects:(NSArray *)rects contains:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock;
+- (void)dragViewWithinView:(UIView *)view evaluateRectsForOverlap:(NSArray *)rects containedByOverlappingRectBlock:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock;
 
-Behaves similarly, but rather than pass an array of "views", this method expects an array of NSValues, where each value boxes a CGRect. The blocks carry a reference to the index of the overlapping rectangle, as opposed to a pointer to a view instance. This allow greater flexibility, for example allowing the programmer the ability to convert rectangles or transforms to a common coordinate space, or respond to movement in arbitrary rectangles that do not represent the frame of a view.
+Behaves similarly, but rather than pass an array of "views", this method expects an array of NSValues, where each value boxes a CGRect. The block provides a reference to the index of the overlapping rectangle, as opposed to a view instance. This allow greater flexibility by enabling the ability to perform more involved conversions with rectangles or transforms to a common coordinate space prior to evaluation. You may thus also simply create arbitrary rects and respond to overlapping conditions with those as well.
 
 Finally, the method:
 - (void)dragLayer:(CALayer *)layer withinView:(UIView *)view evaluateOverlappingRects:(NSArray *)rects contains:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock;
 
-This method allows us to animate any given CALayer instance corresponding to the movement of the gesture, not restricted to the layer of the view that the gesture recognizer decorates. It is required that any layer you wish to animate	with this method reside in the same superlayer as the layer of the recognizer's view.
+Allows you to animate any given CALayer instance corresponding to the movement of the gesture, but is not restricted to the layer of the view that the gesture recognizer decorates. It is required that any layer you wish to animate	with this method reside in the same superlayer as the layer of the recognizer's view.
