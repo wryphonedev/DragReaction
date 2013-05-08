@@ -59,7 +59,7 @@
     UIView *matchingView = nil;
     NSInteger matchingIndex = [views indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
                                {
-                                   NSAssert([obj isMemberOfClass:[UIView class]], @"Attempting to style an object that isn't a view");
+                                   NSAssert([obj isMemberOfClass:[UIView class]], @"Attempting to evaluate an object that isn't a view");
                                    UIView *view = (UIView *)obj;
                                    CGRect frame = view.frame;
                                    

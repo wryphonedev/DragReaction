@@ -17,7 +17,7 @@ static char const * const RectValuesKey = "ZSRectValues";
 @dynamic startPoint;
 @dynamic rectValues;
 
-- (void)dragAttachedViewWithinView:(UIView *)view evaluatingOverlappingViews:(NSArray *)views contains:(void (^)(UIView *overlappingView))containsBlock completion:(void (^)(UIView *overlappingView))completionBlock
+- (void)dragViewWithinView:(UIView *)view evaluateViewsForOverlap:(NSArray *)views containedByOverlappingViewBlock:(void (^)(UIView *overlappingView))containsBlock completion:(void (^)(UIView *overlappingView))completionBlock
 {
     if ([self state] == UIGestureRecognizerStateBegan)
     {
@@ -63,11 +63,11 @@ static char const * const RectValuesKey = "ZSRectValues";
             completionBlock(overlappingView);
         }
     };
-
-    [self dragAttachedViewWithinView:view
-          evaluatingOverlappingRects:[self rectValues]
-                            contains:overlappingBlock
-                          completion:finishedBlock];
+    
+    [self dragViewWithinView:view
+     evaluateRectsForOverlap:[self rectValues]
+containedByOverlappingRectBlock:overlappingBlock
+                  completion:finishedBlock];
     
     
     if ([self state] == UIGestureRecognizerStateEnded)
@@ -76,17 +76,17 @@ static char const * const RectValuesKey = "ZSRectValues";
     }
 }
 
-- (void)dragAttachedViewWithinView:(UIView *)view evaluatingOverlappingRects:(NSArray *)rects contains:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock
+- (void)dragViewWithinView:(UIView *)view evaluateRectsForOverlap:(NSArray *)rects containedByOverlappingRectBlock:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock
 {
     CALayer *gestureViewLayer = [[self view] layer];
     [self dragLayer:gestureViewLayer
          withinView:view
-evaluateOverlappingRects:rects
-           contains:containsBlock
+evaluateRectsForOverlaps:rects
+containedByOverlappingRectBlock:containsBlock
          completion:completionBlock];
 }
 
-- (void)dragLayer:(CALayer *)layer withinView:(UIView *)view evaluateOverlappingRects:(NSArray *)rects contains:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock
+- (void)dragLayer:(CALayer *)layer withinView:(UIView *)view evaluateRectsForOverlaps:(NSArray *)rects containedByOverlappingRectBlock:(void (^)(NSUInteger overlappingIndex))containsBlock completion:(void (^)(NSUInteger overlappingIndex))completionBlock
 {
     CGPoint location = [self locationInView:view];
     CGPoint translatedPoint;
@@ -98,7 +98,7 @@ evaluateOverlappingRects:rects
     NSAssert([gestureLayer superlayer] == [layer superlayer], @"Layer to be animated must reside in the same superlayer as the gesture's view layer.");
     CGRect layerRect = [layer frame];
     layerRect = [view convertRect:layerRect fromView:[[self view] superview]];
-
+    
     switch ([self state])
     {
         case UIGestureRecognizerStateBegan:
