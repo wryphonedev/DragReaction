@@ -44,7 +44,7 @@
     __block UILabel *label = [self completionLabel];
     
     // Block to execute when our dragged view is contained by one of our evaluation views.
-    void (^overlappingBlock)(UIView *overlappingView);
+    static void (^overlappingBlock)(UIView *overlappingView);
     overlappingBlock = ^(UIView *overlappingView) {
         
         [views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -66,7 +66,7 @@
     };
     
    // Block to execute when gesture ends.
-    void (^completionBlock)(UIView *overlappingView);
+    static void (^completionBlock)(UIView *overlappingView);
     completionBlock = ^(UIView *overlappingView) {
         
         if (overlappingView)

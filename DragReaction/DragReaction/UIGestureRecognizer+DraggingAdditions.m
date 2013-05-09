@@ -26,7 +26,7 @@ static char const * const AnimatingLayerKey = "ZSAnimatingLayer";
         [self setRectValues:[NSArray arrayWithArray:rectValues]];
     }
     
-    void (^overlappingBlock)(NSUInteger);
+    static void (^overlappingBlock)(NSUInteger);
     overlappingBlock = ^(NSUInteger overlappingIndex){
         
         UIView *overlappingView = nil;
@@ -41,7 +41,7 @@ static char const * const AnimatingLayerKey = "ZSAnimatingLayer";
         }
     };
     
-    void (^finishedBlock)(NSUInteger);
+    static void (^finishedBlock)(NSUInteger);
     finishedBlock = ^(NSUInteger overlappingIndex){
         
         UIView *overlappingView = nil;
