@@ -10,6 +10,26 @@
 
 @implementation UIView (ZSViewAdditions)
 
+- (NSArray *)frameRectValuesForSubviews
+{
+    return [UIView frameRectValuesForViews:[self subviews]];
+}
+
++ (NSArray *)frameRectValuesForViews:(NSArray *)subviews
+{
+    __block NSMutableArray *frameValues = [[NSMutableArray alloc] initWithCapacity:[subviews count]];
+    [subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIView *view = (UIView *)obj;
+        CGRect frame = [view frame];
+        NSValue *frameValue = [NSValue valueWithCGRect:frame];
+        [frameValues insertObject:frameValue atIndex:idx];
+        
+    }];
+    
+    return [NSArray arrayWithArray:frameValues];
+}
+
 + (NSUInteger)indexOfRectContainingPoint:(CGPoint)point evaluateRects:(NSArray *)evaluate
 {
     return [evaluate indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {

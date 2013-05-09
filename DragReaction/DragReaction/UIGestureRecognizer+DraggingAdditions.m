@@ -11,6 +11,7 @@
 
 static char const * const StartPointKey = "ZSStartPoint";
 static char const * const RectValuesKey = "ZSRectValues";
+static char const * const AnimatingLayerKey = "ZSAnimatingLayer";
 
 @implementation UIGestureRecognizer (DraggingAdditions)
 
@@ -21,17 +22,8 @@ static char const * const RectValuesKey = "ZSRectValues";
 {
     if ([self state] == UIGestureRecognizerStateBegan)
     {
-        __block NSMutableArray *viewRectValueArray = [[NSMutableArray alloc] initWithCapacity:[views count]];
-        [views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            
-            UIView *evaluationView = (UIView *)obj;
-            CGRect rect = [evaluationView frame];
-            rect = [view convertRect:rect fromView:[evaluationView superview]];
-            NSValue *rectValue = [NSValue valueWithCGRect:rect];
-            [viewRectValueArray insertObject:rectValue atIndex:idx];
-        }];
-        
-        [self setRectValues:[NSArray arrayWithArray:viewRectValueArray]];
+        NSArray *rectValues = [UIView frameRectValuesForViews:views];
+        [self setRectValues:[NSArray arrayWithArray:rectValues]];
     }
     
     void (^overlappingBlock)(NSUInteger);
@@ -94,8 +86,6 @@ containedByOverlappingRectBlock:containsBlock
     translatedPoint.y = location.y - self.startPoint.y;
     translatedPoint = [[[self view] superview] convertPoint:location fromView:view];
     
-    CALayer *gestureLayer = [[self view] layer];
-    NSAssert([gestureLayer superlayer] == [layer superlayer], @"Layer to be animated must reside in the same superlayer as the gesture's view layer.");
     CGRect layerRect = [layer frame];
     layerRect = [view convertRect:layerRect fromView:[[self view] superview]];
     

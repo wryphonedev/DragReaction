@@ -14,5 +14,7 @@
 + (UIView *)viewContainingRect:(CGRect)rect evaluateViews:(NSArray *)views;
 + (NSUInteger)indexOfRectContainingPoint:(CGPoint)point evaluateRects:(NSArray *)evaluate;
 + (NSUInteger)indexOfRectContainingRect:(CGRect)rect evaluateRects:(NSArray *)evaluate;
++ (NSArray *)frameRectValuesForViews:(NSArray *)views;
+- (NSArray *)frameRectValuesForSubviews;
 
 @end

@@ -82,11 +82,11 @@
             aView.layer.borderWidth = 0.0f;
         }];
     };
-
-    [recongizer dragAttachedViewWithinView:[self view]
-                evaluatingOverlappingViews:views
-                                  contains:overlappingBlock
-                                completion:completionBlock];
+    
+    [recongizer dragViewWithinView:[self view]
+           evaluateViewsForOverlap:views
+   containedByOverlappingViewBlock:overlappingBlock
+                        completion:completionBlock];
     
 }
 
